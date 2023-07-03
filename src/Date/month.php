@@ -8,6 +8,7 @@ class Month
 {
 
     private $months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+    public $days = ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimache'];
     private $month;
     private $year;
 
@@ -36,6 +37,19 @@ class Month
         $this->year = $year;
     }
 
+
+
+    /**
+     *retourne le 1er jour du mois
+     * @return \datetime
+     */
+    public function getStartDay(): \DateTime
+    {
+        return  new \DateTime("{$this->year}-{$this->month}-01");
+    }
+
+
+
     /**
      *retourne le mois en toute lettre
      * @return string
@@ -45,13 +59,13 @@ class Month
         return $this->months[$this->month - 1] . ' ' . $this->year;
     }
 
-    public function getWeeks (): int
+    public function getWeeks(): int
     {
-        $start = new \DateTime("{$this->year}-{$this->month}-01");
+        $start = $this->getStartDay();
         $end =  (clone $start)->modify('+1 month -1 day');
         //var_dump($start, $end);
         $weeks = intval($end->format('W')) - intval($start->format('W')) + 1;
-        if($weeks < 0){
+        if ($weeks < 0) {
             $weeks = intval($end->format('W'));
         }
         return $weeks;

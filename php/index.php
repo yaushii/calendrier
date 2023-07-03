@@ -23,17 +23,23 @@
         $month = new App\Date\Month();
     } ?>*/
 
-    $month = new App\Date\Month($_GET['month'] ?? null, $_GET['year'] ?? null); ?>
+    $month = new App\Date\Month($_GET['month'] ?? null, $_GET['year'] ?? null); 
+$day = $month->getStartDay()->modify('last monday');
+?>
+
 
     <h1><?= $month->toString(); ?></h1>
 
-    <?= $month->getWeeks(); ?>
+  
 
-    <table class ="calendarTable">
+    <table class ="calendarTable calendarTable--<?= $month->getWeeks(); ?>weeks">
         <?php
         for ($i = 0; $i < $month->getWeeks(); $i++) { ?>
             <tr>
-                <td>Lundi</td>
+                <td>Lundi<br>
+                <?= $day->format('d') ?>
+            </td>
+
                 <td>Mardi</td>
                 <td>Mercredi</td>
                 <td>Jeudi</td>
