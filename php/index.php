@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/calendar.css">
 </head>
@@ -23,31 +23,28 @@
         $month = new App\Date\Month();
     } ?>*/
 
-    $month = new App\Date\Month($_GET['month'] ?? null, $_GET['year'] ?? null); 
-$day = $month->getStartDay()->modify('last monday');
-?>
+    $month = new App\Date\Month($_GET['month'] ?? null, $_GET['year'] ?? null);
+    $start = $month->getStartDay()->modify('last monday');
+    ?>
 
 
     <h1><?= $month->toString(); ?></h1>
 
-  
 
-    <table class ="calendarTable calendarTable--<?= $month->getWeeks(); ?>weeks">
+
+    <table class="calendarTable calendarTable--<?= $month->getWeeks(); ?>weeks">
         <?php
         for ($i = 0; $i < $month->getWeeks(); $i++) { ?>
             <tr>
-                <td>Lundi<br>
-                <?= $day->format('d') ?>
-            </td>
+                <?php foreach ($month->days as $k => $day) { ?>
+                    <td>
+                        <div class="calendar__weekday"> <?= $day; ?></div>
+                        <div class="calendar__day"><?= (clone $start)->modify(" + " . ($k + $i * 7) ." days")->format('d'); ?></div>
+                    </td>
+                <?php } ?>
 
-                <td>Mardi</td>
-                <td>Mercredi</td>
-                <td>Jeudi</td>
-                <td>Vendredi</td>
-                <td>Samedi</td>
-                <td>Dimanche</td>
             </tr>
-        <?php } ?>
+        <?php  } ?>
 
 
 
