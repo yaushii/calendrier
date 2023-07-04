@@ -14,3 +14,10 @@ height: 20%;
 .calendarTable--6weeks{
     height: 16.66%;
 }
+
+.calendar__weekday{
+
+    font-weight: bold;
+    color:black;
+    font-size: 1.2em;
+}

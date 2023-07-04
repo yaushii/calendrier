@@ -38,17 +38,15 @@
             <tr>
                 <?php foreach ($month->days as $k => $day) { ?>
                     <td>
-                        <div class="calendar__weekday"> <?= $day; ?></div>
+                      <?php if($i ===0): ?>
+                       <div class="calendar__weekday"> <?= $day; ?></div>
+                            <?php endif?>
                         <div class="calendar__day"><?= (clone $start)->modify(" + " . ($k + $i * 7) ." days")->format('d'); ?></div>
                     </td>
                 <?php } ?>
 
             </tr>
         <?php  } ?>
-
-
-
-
 
     </table>
 
